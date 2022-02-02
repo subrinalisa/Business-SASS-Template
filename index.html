@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Weather App">
+    <meta name="author" content="Subrina Lisa">
+    <!-- Title -->
+    <title>Weathern</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <!-- Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Icons Stylesheet -->
+    <link rel="stylesheet" href="assets/icon-fontawesome/css/all.css">
+    <link rel="stylesheet" href="assets/icon-bootstrap/bootstrap-icons.css">
+    <!-- Plugin Stylesheet -->
+    <link rel="stylesheet" href="assets/vendor/tab.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- ========= Preloader ========= -->
+    <div id="preloader">
+        <div class="loader-wrap">
+            <div class="loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+    <!-- ========= Header ========= -->
+    <header>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card wrapper">
+                        <div class="card-body">
+                            <div class="d-md-flex justify-content-between">
+                                <div class="logo align-self-center mb-4">
+                                    <a href="index.html"><img src="./assets/images/logo.png" class="img-fluid"
+                                            alt="weather">Weathern</a>
+                                </div>
+                                <div class="form align-self-center mb-4">
+                                    <form class="d-flex" id="form">
+                                        <input class="form-control me-2" type="search" placeholder="Search City">
+                                        <button class="btn btn-primary" type="submit">Search</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <!-- <h2>New York City</h2>
+                                <hr>
+                                <div class="row daily-weather">
+                                    <div class="col-md-4 single">
+                                        <h3>Sunday</h3>
+                                        <p class="mt-2"><i class="bi bi-cloud-drizzle-fill"></i><span
+                                                class="ms-2">Cloudy</span></p>
+                                    </div>
+                                    <div class="col-md-4 single">
+                                        <h3>17 C</h3>
+                                    </div>
+                                    <div class="col-md-4 single">
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <th>Wind</th>
+                                                <th>:</th>
+                                                <td>0 kmph</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Precip</th>
+                                                <th>:</th>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pressure</th>
+                                                <th>:</th>
+                                                <td>0</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="row justify-content-center weekly-weather">
+                                <div class="col-md-4 col-lg">
+                                    <div class="card single">
+                                        <div class="card-body">
+                                            <h4>Thu</h4>
+                                            <p>9 C</p>
+                                            <p><i class="bi bi-cloud-drizzle-fill"></i><span class="ms-2">Cloudy</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg">
+                                    <div class="card single">
+                                        <div class="card-body">
+                                            <h4>Thu</h4>
+                                            <p>9 C</p>
+                                            <p><i class="bi bi-cloud-drizzle-fill"></i><span class="ms-2">Cloudy</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg">
+                                    <div class="card single">
+                                        <div class="card-body">
+                                            <h4>Thu</h4>
+                                            <p>9 C</p>
+                                            <p><i class="bi bi-cloud-drizzle-fill"></i><span class="ms-2">Cloudy</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg">
+                                    <div class="card single">
+                                        <div class="card-body">
+                                            <h4>Thu</h4>
+                                            <p>9 C</p>
+                                            <p><i class="bi bi-cloud-drizzle-fill"></i><span class="ms-2">Cloudy</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg">
+                                    <div class="card single">
+                                        <div class="card-body">
+                                            <h4>Thu</h4>
+                                            <p>9 C</p>
+                                            <p><i class="bi bi-cloud-drizzle-fill"></i><span class="ms-2">Cloudy</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ========= Js Files ========= -->
+    <!-- Jquery Js -->
+    <script src="assets/js/jquery-1.12.4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Popper Js -->
+    <script src="assets/js/popper.min.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Plugin Js -->
+    <script src="assets/vendor/scroll-up.min.js"></script>
+    <!-- Custom Js -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
