@@ -296,16 +296,13 @@ header {
     padding-top: 16px;
     border: 5px solid $primary-color;
     background: rgba(22, 57, 76, 0.6);
-
-    h2 {
-        @include fonts(24px, 600, #fff);
-        text-align: center;
-    }
+    @include radius();
 }
 
 .logo {
-    a {
+    span {
         @include fonts(24px, 700, #fff);
+        vertical-align: middle;
     }
 
     img {
@@ -313,72 +310,75 @@ header {
     }
 }
 
-.daily-weather {
-    text-align: right;
-
-    h3 {
-        font-size: 24px;
-    }
+.city-name {
+    @include fonts(24px, 600, #fff);
+    text-align: center;
 }
 
 .single {
     margin-bottom: 16px;
 
-    .table {
-        color: #fff;
+    h3 {
+        @include fonts(22px, 600, #fff);
+        margin-bottom: 8px;
+    }
 
-        th,
-        td {
-            padding: 0 4px 0;
+    h5 {
+
+        i {
+            font-size: 30px;
+            vertical-align: middle;
+        }
+
+        span {
+            @include fonts(18px, 400, #fff);
+            text-transform: capitalize;
         }
     }
 }
 
-.weekly-weather {
-    .single {
+.history {
+    .card {
         text-align: center;
-        background: transparent;
         border: $border;
+        background: transparent;
+    }
 
-        h4 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
+    .card-header {
+        border-bottom: $border;
+    }
+
+    .icon {
+        font-size: 50px;
+    }
+
+    p:not(:last-child) {
+        margin-bottom: 4px;
     }
 }
 
+table {
+
+    th,
+    td {
+        font-weight: 400;
+    }
+}
+.des{
+    text-transform: capitalize;
+}
 /*--------------------------------------------------------------------
 Responsive
 ---------------------------------------------------------------------*/
 @media (max-width: 767.98px) {
     .logo {
         text-align: center;
+        margin-bottom: 16px;
     }
-
-    .daily-weather {
-        text-align: center;
-
-        h3 {
-            font-size: 20px;
-        }
-    }
-
-    .single {
+    .single{
         text-align: center;
     }
-}
-
-@media (min-width: 992px) {
-    header {
-        margin: 0;
-        width: 100%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        -o-transform: translate(-50%, -50%);
+    table{
+        margin: auto;
     }
 }

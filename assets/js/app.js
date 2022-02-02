@@ -1,16 +1,33 @@
 /*=====================================================
 Dom
 ========================================================*/
+const apiKey = '5fdb8b94f042171aff94df37e212fc0d';
 const content = document.querySelector('.content');
+const history = document.querySelector('.history');
 const form = document.querySelector('#form');
 const input = document.querySelector('#form input');
-/*=======================================================
-Api
-==========================================================*/
-const apiKey = '5fdb8b94f042171aff94df37e212fc0d';
 /*==================================================
 Function
 =====================================================*/
+const fetchDate = (url) => {
+    axios
+        .get(url)
+        .then((res) => {
+            const data = res.data;
+            renderDate(data);
+            fetchLocation(data.coord.lat, data.coord.lon);
+        })
+        .catch((err) => alert(`Wrong City`))
+}
+const fetchHistory = (url) => {
+    axios
+        .get(url)
+        .then((res) => {
+            const data = res.data;
+            renderHistory(data);
+        })
+        .catch((err) => alert(`Wrong Location`))
+}
 const iconValue = (icon) => {
     if (icon == '01d' || icon == '01n') {
         return icon = 'bi bi-cloud-fill';
@@ -33,59 +50,71 @@ const iconValue = (icon) => {
     }
 }
 const convertTime = (dt) => {
-    formattedTime = window.moment(dt * 1000).format('h:mm a');
-    return formattedTime;
+    return window.moment(dt * 1000).format('h:mm a');
 }
 const convertDate = (dt) => {
-    formattedDate = window.moment(dt * 1000).format('dddd, do MMM');
-    return formattedDate;
+    return window.moment(dt * 1000).format('dddd, Do MMM');
 }
-const fetchDate = (city, container) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-    axios
-        .get(url)
-        .then((res) => {
-            const data = res.data;
-            renderDate(data, container);
-        })
-        .catch((err) => alert(`Wrong City`))
-}
-const renderDate = (data, container) => {
-    let icon = data.weather[0].icon;
-    icon = iconValue(icon);
-    const date = convertDate(data.dt);
-    const sunrise = convertTime(data.sys.sunrise);
-    const sunset = convertTime(data.sys.sunset);
-    container.innerHTML = `
-    <h2>Weather in ${data.name}, ${data.sys.country}</h2>
+const renderDate = (data) => {
+    content.innerHTML = `
+    <h2 class="city-name">Weather in ${data.name}, ${data.sys.country}</h2>
     <hr>
-    <div class="row">
-        <div class="col-md-6 order-1 order-md-0 single">
-            <h4 class="mb-2">Temperature: ${data.main.temp} &#xb0;C</h4>
-            <table class="table-sm table-borderless">
-                <tr>
-                    <th>Humidity</th>
-                    <td>:</td>
-                    <td>${data.main.humidity} %</td>
-                </tr>
-                <tr>
-                    <th>Sunrise</th>
-                    <td>:</td>
-                    <td>${sunrise}</td>
-                </tr>
-                <tr>
-                    <th>Sunset</th>
-                    <td>:</td>
-                    <td>${sunset}</td>
-                </tr>
-            </table>
+    <div class="row today">
+        <div class="col-md-6">
+            <div class="single">
+                <h3>Temperature: ${data.main.temp} °C</h3>
+                <table class="table-sm table-borderless">
+                    <tbody>
+                        <tr>
+                            <th>Humidity</th>
+                            <td>:</td>
+                            <td>${data.main.humidity} %</td>
+                        </tr>
+                        <tr>
+                            <th>Sunrise</th>
+                            <td>:</td>
+                            <td>${convertTime(data.sys.sunrise)}</td>
+                        </tr>
+                        <tr>
+                            <th>Sunset</th>
+                            <td>:</td>
+                            <td>${convertTime(data.sys.sunset)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-md-6 order-0 order-md-1 single daily-weather">
-            <h3>${date}</h3>
-            <p class="today-time"></p>
-            <p><i class="${icon} me-2"></i><span>${data.weather[0].description}</span></p>
+        <div class="col-md-6 text-md-end">
+            <div class="single">
+                <h3>${convertDate(data.dt)}</h3>
+                <h5><i class="${iconValue(data.weather[0].icon)} me-2"></i><span>${data.weather[0].description}</span></h5>
+            </div>
         </div>
-    </div>`;
+    </div>
+    `;
+}
+const fetchLocation = (lat, lon) => {
+    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    fetchHistory(url);
+}
+const renderHistory = (data) => {
+    history.innerHTML = '';
+    data.daily.forEach((element) => {
+        history.innerHTML += `
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card single">
+                    <div class="card-header">
+                        <h4 class="card-title">${window.moment(element.dt * 1000).format('ddd, Do MMM')}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="icon"><i class="${iconValue(element.weather[0].icon)}"></i></div>
+                        <p class="des">${element.weather[0].description}</p>
+                        <p>Day: ${element.temp.day} °C</p>
+                        <p>Night: ${element.temp.night} °C</p>
+                    </div>
+                </div>
+            </div>`;
+    })
 }
 /*=======================================
 Event
@@ -93,16 +122,14 @@ Event
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     jQuery("#preloader").show().fadeOut(250);
-    const city = input.value;
-    fetchDate(city, content);
+    city = input.value;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    fetchDate(url);
     input.value = '';
 });
 /*=======================
 Initial
 ==========================*/
-fetchDate('rajshahi', content);
-setInterval((e) => {
-    const time = new Date().toLocaleTimeString();
-    const todayTime = content.querySelector('.today-time');
-    todayTime.innerText = `${time} (BD Time)`;
-}, 1000);
+let city = 'Rajshahi';
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+fetchDate(url);

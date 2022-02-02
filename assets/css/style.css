@@ -321,55 +321,79 @@ header {
   padding-top: 16px;
   border: 5px solid #56A0EE;
   background: rgba(22, 57, 76, 0.6);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
-.wrapper h2 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-}
-
-.logo a {
+.logo span {
   font-size: 24px;
   font-weight: 700;
   color: #fff;
+  vertical-align: middle;
 }
 
 .logo img {
   width: 50px;
 }
 
-.daily-weather {
-  text-align: right;
-}
-
-.daily-weather h3 {
+.city-name {
   font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
 }
 
 .single {
   margin-bottom: 16px;
 }
 
-.single .table {
+.single h3 {
+  font-size: 22px;
+  font-weight: 600;
   color: #fff;
-}
-
-.single .table th,
-.single .table td {
-  padding: 0 4px 0;
-}
-
-.weekly-weather .single {
-  text-align: center;
-  background: transparent;
-  border: 1px solid #d5d5d5;
-}
-
-.weekly-weather .single h4 {
-  font-size: 18px;
   margin-bottom: 8px;
+}
+
+.single h5 i {
+  font-size: 30px;
+  vertical-align: middle;
+}
+
+.single h5 span {
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.history .card {
+  text-align: center;
+  border: 1px solid #d5d5d5;
+  background: transparent;
+}
+
+.history .card-header {
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.history .icon {
+  font-size: 50px;
+}
+
+.history p:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+table th,
+table td {
+  font-weight: 400;
+}
+
+.des {
+  text-transform: capitalize;
 }
 
 /*--------------------------------------------------------------------
@@ -378,30 +402,13 @@ Responsive
 @media (max-width: 767.98px) {
   .logo {
     text-align: center;
-  }
-  .daily-weather {
-    text-align: center;
-  }
-  .daily-weather h3 {
-    font-size: 20px;
+    margin-bottom: 16px;
   }
   .single {
     text-align: center;
   }
-}
-
-@media (min-width: 992px) {
-  header {
-    margin: 0;
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
+  table {
+    margin: auto;
   }
 }
 /*# sourceMappingURL=style.css.map */
