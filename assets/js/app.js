@@ -83,7 +83,7 @@ const renderDate = (data) => {
             </div>
         </div>
     </div>`;
-    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${bgImg})`;
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${changeBg(data.weather[0].icon)})`;
 }
 const renderHistory = (data) => {
     history.innerHTML = '';
@@ -116,32 +116,45 @@ const convertDate = (dt) => {
 const iconValue = (icon) => {
     switch (true) {
         case icon == '01d' || icon == '01n':
-            bgImg = images[0];
             return icon = 'bi bi-cloud-sun-fill';
         case icon == '02d' || icon == '02n':
-            bgImg = images[1];
             return icon = 'bi bi-cloud-sun-fill';
         case icon == '03d' || icon == '03n':
-            bgImg = images[2];
             return icon = 'bi bi-clouds-fill';
         case icon == '04d' || icon == '04n':
-            bgImg = images[3];
             return icon = 'bi bi-cloud-haze2-fill';
         case icon == '09d' || icon == '09n':
-            bgImg = images[4];
             return icon = 'bi bi-cloud-drizzle-fill';
         case icon == '10d' || icon == '10n':
-            bgImg = images[5];
             return icon = 'bi bi-cloud-drizzle-fill';
         case icon == '11d' || icon == '11n':
-            bgImg = images[6];
             return icon = 'bi bi-cloud-lightning-fill';
         case icon == '13d' || icon == '13n':
-            bgImg = images[7];
             return icon = 'bi bi-cloud-snow-fill';
         case icon == '50d' || icon == '50n':
-            bgImg = images[8];
             return icon = 'bi bi-cloud-haze2-fill';
+    }
+}
+const changeBg = (icon) => {
+    switch (true) {
+        case icon == '01d' || icon == '01n':
+            return bgImg = images[0];
+        case icon == '02d' || icon == '02n':
+            return bgImg = images[1];
+        case icon == '03d' || icon == '03n':
+            return bgImg = images[2];
+        case icon == '04d' || icon == '04n':
+            return bgImg = images[3];
+        case icon == '09d' || icon == '09n':
+            return bgImg = images[4];
+        case icon == '10d' || icon == '10n':
+            return bgImg = images[5];
+        case icon == '11d' || icon == '11n':
+            return bgImg = images[6];
+        case icon == '13d' || icon == '13n':
+            return bgImg = images[7];
+        case icon == '50d' || icon == '50n':
+            return bgImg = images[8];
     }
 }
 /*=======================================
