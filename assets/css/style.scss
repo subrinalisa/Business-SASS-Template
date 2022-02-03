@@ -23,17 +23,20 @@ $scrollbar-color: #608094;
 }
 
 @mixin radius {
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
 
 body {
     font-family: 'Nunito', sans-serif;
     @include fonts(16px, 400, $text-color);
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/209831/pexels-photo-209831.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center/cover;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/209831/pexels-photo-209831.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     min-height: 100vh;
     position: relative;
 }
@@ -292,10 +295,19 @@ header {
     margin: 50px 0;
 }
 
+.tp-ac__input {
+    padding: .375rem .75rem;
+    @include radius();
+    background: #fff;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
 .wrapper {
     padding-top: 16px;
     border: 5px solid $primary-color;
-    background: rgba(22, 57, 76, 0.6);
+    background: rgba(22, 57, 76, 0.9);
     @include radius();
 }
 
@@ -324,15 +336,15 @@ header {
     }
 
     h5 {
-
         i {
             font-size: 30px;
             vertical-align: middle;
         }
 
         span {
-            @include fonts(18px, 400, #fff);
+            @include fonts(16px, 400, #fff);
             text-transform: capitalize;
+            vertical-align: middle;
         }
     }
 }
@@ -364,9 +376,11 @@ table {
         font-weight: 400;
     }
 }
-.des{
+
+.des {
     text-transform: capitalize;
 }
+
 /*--------------------------------------------------------------------
 Responsive
 ---------------------------------------------------------------------*/
@@ -375,10 +389,12 @@ Responsive
         text-align: center;
         margin-bottom: 16px;
     }
-    .single{
+
+    .single {
         text-align: center;
     }
-    table{
+
+    table {
         margin: auto;
     }
 }
