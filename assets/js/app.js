@@ -163,7 +163,7 @@ Event
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     jQuery("#preloader").show().fadeOut(250);
-    const city = input.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    const city = input.value.split(/[ ,]+/)[0].normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
     fetchDate(url);
     input.value = '';
