@@ -1,6 +1,6 @@
 <h2>Weathern</h2>
 <p>It is an weather application. User can get his current location's weather updates, also he can get any city's
-    weather information from the search bar.</p>
+    weather information by searching the city name.</p>
 <h2>How to run the app</h2>
 <ul>
     <li>Download the file as zip & extract it</li>
@@ -58,7 +58,7 @@
     <li>
         <p><b>Initial Stage:</b> Initially it will ask for the user's current location by <b>geolocation</b> api.
             If user denies, then it will invoke <b>onError</b> function. This will invoke the <b>fetchDate</b>
-            function with a user predefined city name. It'll then show the data according it.</p>
+            function with a user predefined city name. It'll then show the data according to it.</p>
         <p>If user gives access to his current location, then it'll invoke <b>onSuccess</b> function & show the current city's weather information.</p>
     </li>
     <li>
