@@ -48,17 +48,19 @@
                                             alt="weather"><span>Weathern</span></a>
                                 </div>
                                 <div class="align-self-center">
-                                    <form class="d-flex" id="form">
+                                    <form class="d-flex justify-content-center" id="form">
                                         <input class="form-control" type="search" placeholder="Search City"
                                             list="search-city" required>
                                         <button class="btn btn-primary ms-2" type="submit">Search</button>
                                     </form>
                                 </div>
                             </div>
-                            <div class="content">
+                            <h2 class="city-name"></h2>
+                            <hr>
+                            <div class="row today">
                                 <!-- Dynamically Rendered -->
                             </div>
-                            <div class="row history">
+                            <div class="row upcoming">
                                 <!-- Dynamically Rendered -->
                             </div>
                         </div>
@@ -71,7 +73,6 @@
     <!-- Jquery Js -->
     <script src="assets/js/jquery-1.12.4.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- Popper Js -->
     <script src="assets/js/popper.min.js"></script>
     <!-- Bootstrap Js -->

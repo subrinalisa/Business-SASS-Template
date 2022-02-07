@@ -2,10 +2,11 @@
 Dom
 =======================================================*/
 const apiKey = '5fdb8b94f042171aff94df37e212fc0d';
-const content = document.querySelector('.content');
-const history = document.querySelector('.history');
+const today = document.querySelector('.today');
+const upcoming = document.querySelector('.upcoming');
 const form = document.querySelector('#form');
 const input = document.querySelector('#form input');
+const cityName = document.querySelector('.city-name');
 const images = [
     `https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`,
     `https://images.pexels.com/photos/6534191/pexels-photo-6534191.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`,
@@ -34,71 +35,62 @@ const fetchDate = (url) => {
     axios
         .get(url)
         .then((res) => {
-            renderDate(res.data);
+            cityName.innerHTML = `Weather in ${res.data.name}, ${res.data.sys.country}`;
             const urlNew = `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&units=metric&appid=${apiKey}`;
-            fetchHistory(urlNew);
+            fetchLocation(urlNew);
         })
-        .catch((err) => alert(`Wrong City`))
+        .catch((err) => alert(`Wrong City`));
 }
-const fetchHistory = (url) => {
+const fetchLocation = (url) => {
     axios
         .get(url)
-        .then((res) => renderHistory(res.data))
-        .catch((err) => alert(`Wrong Location`))
+        .then((res) => renderData(res.data))
+        .catch((err) => alert(`Wrong Location`));
 }
-const renderDate = (data) => {
-
-    const utc = new Date().getTime() + new Date().getTimezoneOffset() * 60000;
-    const localTime = new Date(utc + (1000 * data.timezone));
-    content.innerHTML = `
-    <h2 class="city-name">Weather in ${data.name}, ${data.sys.country}</h2>
-    <hr>
-    <div class="row today">
-        <div class="col-md-6">
-            <div class="single">
-                <h3>Temperature: ${data.main.temp} °C</h3>
-                <table class="table-sm table-borderless">
-                    <tbody>
-                        <tr>
-                            <th>Humidity</th>
-                            <td>:</td>
-                            <td>${data.main.humidity} %</td>
-                        </tr>
-                        <tr>
-                            <th>Sunrise</th>
-                            <td>:</td>
-                            <td>${convertTime(data.sys.sunrise*1000)}</td>
-                        </tr>
-                        <tr>
-                            <th>Sunset</th>
-                            <td>:</td>
-                            <td>${convertTime(data.sys.sunset*1000)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+const renderData = (data) => {
+    today.innerHTML = `
+    <div class="col-md-6">
+        <div class="single">
+            <h3>Temperature: ${data.current.temp} °C</h3>
+            <table class="table-sm table-borderless">
+                <tbody>
+                    <tr>
+                        <th>Humidity</th>
+                        <td>:</td>
+                        <td>${data.current.humidity} %</td>
+                    </tr>
+                    <tr>
+                        <th>Sunrise</th>
+                        <td>:</td>
+                        <td>${convertTime(data.current.sunrise, data.timezone)}</td>
+                    </tr>
+                    <tr>
+                        <th>Sunset</th>
+                        <td>:</td>
+                        <td>${convertTime(data.current.sunset, data.timezone)}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-6 text-md-end">
-            <div class="single">
-                <h3>${convertDate(localTime)}</h3>
-                <h5 class="mb-1">${convertTime(localTime)}</h5>
-                <h5><i class="${iconValue(data.weather[0].icon)} me-2"></i><span>${data.weather[0].description}</span></h5>
-            </div>
+    </div>
+    <div class="col-md-6 text-md-end">
+        <div class="single">
+            <h3>${convertDate(data.current.dt, data.timezone)}</h3>
+            <h5 class="mb-1">${convertTime(data.current.dt, data.timezone)}</h5>
+            <h5><i class="${iconValue(data.current.weather[0].icon)} me-2"></i><span>${data.current.weather[0].description}</span>
+            </h5>
         </div>
     </div>`;
-    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${changeBg(data.weather[0].icon)})`;
-}
-const renderHistory = (data) => {
-    history.innerHTML = '';
+    upcoming.innerHTML = '';
     data.daily.forEach((element, index) => {
         if (index == 0 || index == 7) {
             return false;
         }
-        history.innerHTML += `
+        upcoming.innerHTML += `
             <div class="col-md-6 col-lg-4">
                 <div class="card single">
                     <div class="card-header">
-                        <h4 class="card-title">${convertDate(element.dt * 1000)}</h4>
+                        <h4 class="card-title">${convertDate(element.dt, data.timezone)}</h4>
                     </div>
                     <div class="card-body">
                         <div class="icon"><i class="${iconValue(element.weather[0].icon)}"></i></div>
@@ -108,13 +100,20 @@ const renderHistory = (data) => {
                     </div>
                 </div>
             </div>`;
+    });
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${changeBg(data.current.weather[0].icon)})`;
+}
+const convertTime = (time, timezone) => {
+    return new Date(time * 1000).toLocaleString('en-US', {
+        timeZone: timezone,
+        timeStyle: "short"
     })
 }
-const convertTime = (timezone) => {
-    return window.moment(timezone).format('h:mm a');
-}
-const convertDate = (timezone) => {
-    return window.moment(timezone).format('dddd, Do MMM');
+const convertDate = (time, timezone) => {
+    return new Date(time * 1000).toLocaleString('en-US', {
+        timeZone: timezone,
+        dateStyle: "long"
+    })
 }
 const iconValue = (icon) => {
     switch (true) {

@@ -387,21 +387,21 @@ header {
   vertical-align: middle;
 }
 
-.history .card {
+.upcoming .card {
   text-align: center;
   border: 1px solid #d5d5d5;
   background: transparent;
 }
 
-.history .card-header {
+.upcoming .card-header {
   border-bottom: 1px solid #d5d5d5;
 }
 
-.history .icon {
+.upcoming .icon {
   font-size: 50px;
 }
 
-.history p:not(:last-child) {
+.upcoming p:not(:last-child) {
   margin-bottom: 4px;
 }
 
