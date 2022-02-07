@@ -71,7 +71,7 @@
         It will then print the city name into the DOM & invoke the <b>fetchLocation</b> function with its resulting latitude and longitude coordinates.
     </li>
     <li>
-        <p><b>Render Date:</b> It will print the data of the current & upcoming 6 days. To print current day's sunrise, sunset & time, it will invoke <b>convertTime</b> function. To print current date & the upcoming 6 days it'll call <b>convertDate</b> function. </p>
+        <p><b>Render Date:</b> It will print the data of the current & upcoming 6 days. To print current day's sunrise, sunset & local time, it will invoke <b>convertTime</b> function. To print current date & the upcoming 6 days it'll call <b>convertDate</b> function. </p>
         <p>The resultant data have total 8 days weather information including the current date. So the first index(0) & the last index(7) is skipped to print only 6 days data.</p>
         <p>While rendering data, the weather icons & background images are changed according to the weather description.</p>
     </li>
