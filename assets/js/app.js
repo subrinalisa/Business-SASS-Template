@@ -47,6 +47,9 @@ const fetchHistory = (url) => {
         .catch((err) => alert(`Wrong Location`))
 }
 const renderDate = (data) => {
+
+    const utc = new Date().getTime() + new Date().getTimezoneOffset() * 60000;
+    const localTime = new Date(utc + (1000 * data.timezone));
     content.innerHTML = `
     <h2 class="city-name">Weather in ${data.name}, ${data.sys.country}</h2>
     <hr>
@@ -64,12 +67,12 @@ const renderDate = (data) => {
                         <tr>
                             <th>Sunrise</th>
                             <td>:</td>
-                            <td>${convertTime(data.sys.sunrise)}</td>
+                            <td>${convertTime(data.sys.sunrise*1000)}</td>
                         </tr>
                         <tr>
                             <th>Sunset</th>
                             <td>:</td>
-                            <td>${convertTime(data.sys.sunset)}</td>
+                            <td>${convertTime(data.sys.sunset*1000)}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -77,8 +80,8 @@ const renderDate = (data) => {
         </div>
         <div class="col-md-6 text-md-end">
             <div class="single">
-                <h3>${convertDate(data.dt)}</h3>
-                <h5 class="mb-1">${convertTime(data.dt)}</h5>
+                <h3>${convertDate(localTime)}</h3>
+                <h5 class="mb-1">${convertTime(localTime)}</h5>
                 <h5><i class="${iconValue(data.weather[0].icon)} me-2"></i><span>${data.weather[0].description}</span></h5>
             </div>
         </div>
@@ -95,7 +98,7 @@ const renderHistory = (data) => {
             <div class="col-md-6 col-lg-4">
                 <div class="card single">
                     <div class="card-header">
-                        <h4 class="card-title">${convertDate(element.dt)}</h4>
+                        <h4 class="card-title">${convertDate(element.dt * 1000)}</h4>
                     </div>
                     <div class="card-body">
                         <div class="icon"><i class="${iconValue(element.weather[0].icon)}"></i></div>
@@ -107,11 +110,11 @@ const renderHistory = (data) => {
             </div>`;
     })
 }
-const convertTime = (dt) => {
-    return window.moment(dt * 1000).format('h:mm a');
+const convertTime = (timezone) => {
+    return window.moment(timezone).format('h:mm a');
 }
-const convertDate = (dt) => {
-    return window.moment(dt * 1000).format('dddd, Do MMM');
+const convertDate = (timezone) => {
+    return window.moment(timezone).format('dddd, Do MMM');
 }
 const iconValue = (icon) => {
     switch (true) {
